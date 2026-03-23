@@ -1,4 +1,86 @@
-# VST-equalizer# VST Equalizer
+# VST Equalizer
+
+A parametric VST3 equalizer plugin built with [JUCE](https://juce.com), featuring six EQ bands, a real-time frequency response curve, and full DAW automation support.
+
+---
+
+## Build Instructions
+
+### Prerequisites
+
+| Tool | Version |
+|------|---------|
+| CMake | ≥ 3.22 |
+| C++ compiler | C++17 capable (GCC 9+, Clang 10+, MSVC 2019+) |
+| Git | Any recent version |
+| Internet access | Required for the first build (JUCE is fetched via FetchContent) |
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/cetinkayabugra/VST-equalizer.git
+cd VST-equalizer
+
+# 2. Configure (downloads JUCE automatically)
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+# 3. Build
+cmake --build build --config Release
+
+# 4. The built plugin will be at:
+#    build/VSTEqualizer_artefacts/Release/VST3/VST Equalizer.vst3   (Linux / Windows)
+#    build/VSTEqualizer_artefacts/Release/VST3/VST Equalizer.vst3   (macOS bundle)
+```
+
+### Running the Standalone version
+
+The build also produces a **Standalone** executable for quick testing without a DAW:
+
+```bash
+./build/VSTEqualizer_artefacts/Release/Standalone/VST\ Equalizer
+```
+
+---
+
+## Plugin Features
+
+| Feature | Details |
+|---------|---------|
+| **EQ bands** | 6 bands: High Pass, Low Shelf, Bell ×2, High Shelf, Low Pass |
+| **Per-band controls** | Frequency, Gain, Q, Enable/Disable toggle, Filter type selector |
+| **Filter types** | High Pass, Low Shelf, Bell/Peak, High Shelf, Low Pass |
+| **Frequency response display** | Real-time EQ curve drawn at 30 fps |
+| **Global bypass** | Hard bypass that passes audio unprocessed |
+| **Output gain** | ±24 dB output trim |
+| **DAW automation** | All parameters are automatable via VST3 |
+| **State persistence** | Plugin state saved/loaded by the DAW |
+| **Stereo processing** | Full stereo support (mono input also accepted) |
+| **Sample rate support** | Any sample rate supported by the DAW |
+
+### Default Band Configuration
+
+| Band | Type | Frequency | Gain | Q |
+|------|------|-----------|------|---|
+| 1 | High Pass | 40 Hz | — | 0.71 |
+| 2 | Low Shelf | 120 Hz | +2.5 dB | 0.90 |
+| 3 | Bell | 500 Hz | −3.0 dB | 1.40 |
+| 4 | Bell | 2.5 kHz | +1.8 dB | 1.10 |
+| 5 | High Shelf | 10 kHz | +3.5 dB | 0.80 |
+| 6 | Low Pass | 20 kHz | — | 0.71 |
+
+---
+
+## Known Limitations
+
+- **No spectrum analyser**: The frequency response curve shows the EQ curve only. A live input/output spectrum overlay is marked as TODO in the source.
+- **No mid/side mode**: Only L/R stereo processing is implemented.
+- **No presets**: Preset save/load is not yet implemented; state is persisted per DAW session via the normal VST3 state mechanism.
+- **No linear phase mode**: All filters are minimum-phase IIR biquads.
+- **No dynamic EQ**: Static EQ only.
+- **No oversampling**: Processing runs at the host's native sample rate.
+
+---
 
 ## Overview
 A **VST Equalizer** is an audio plugin that allows users to shape the frequency balance of an audio signal. It is commonly used in music production, mixing, mastering, podcast editing, and sound design.

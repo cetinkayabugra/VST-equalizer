@@ -1,0 +1,40 @@
+# Build directories
+build/
+cmake-build-*/
+
+# Downloaded JUCE framework (fetched automatically by CMake FetchContent,
+# or placed manually – see README for instructions)
+JUCE/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS metadata
+.DS_Store
+
+# Windows thumbnails
+Thumbs.db
+
+# Compiled objects
+*.o
+*.obj
+*.d
+
+# Shared / dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+
+# JUCE-generated files (inside build dir)
+JuceLibraryCode/
